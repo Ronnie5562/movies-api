@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from drf_spectacular.views import(
+from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
     SpectacularSwaggerView
 )
 
 urlpatterns = [
-    #Admin page
+    # Admin page
     path('admin/', admin.site.urls),
 
     # Apps
