@@ -13,7 +13,7 @@ def create_user(email="test@example.com", password="test123"):
     return get_user_model().objects.create_user(email, password)
 
 
-class ModelTestCases(TestCase):
+class UserModelTestCases(TestCase):
     """
     Model Tests
     """
