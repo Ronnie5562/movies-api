@@ -47,12 +47,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    bio = models.TextField(blank=True)
+    is_verified = models.BooleanField(default=False)
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    # Add users watchlist, Users can \
+    # create different watchlists and add movies to them
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
 
     def __str__(self):
         """String representation of a user"""
-        return f"{self.name} - {self.email}"
+        return f"{self.name} ({self.email})"
