@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     # My Apps
     'core',
     'users',
+    'casts',
+    'movies',
+    'streaming_platforms',
 ]
 
 MIDDLEWARE = [
