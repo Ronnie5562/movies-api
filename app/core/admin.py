@@ -8,6 +8,7 @@ from django.utils.translation import gettext as translate_text
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
+@admin.register(models.User)
 class UserAdmin(BaseUserAdmin):
     """
     The user model for admin
@@ -69,6 +70,3 @@ class UserAdmin(BaseUserAdmin):
             }
         ),
     )
-
-
-admin.site.register(models.User, UserAdmin)
