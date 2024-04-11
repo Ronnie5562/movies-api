@@ -18,7 +18,7 @@ class PlatformTestCases(TestCase):
 
         netflix = Platform.objects.create(
             name=name,
-            website='netflix.comz',
+            website='netflix.com',
             about=about
         )
 
