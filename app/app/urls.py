@@ -27,21 +27,22 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Apps
-    path('api/user/', include('users.urls')),
+    path('api/v1/users/', include('users.urls')),
+    path('api/v1/platforms/', include('streaming_platforms.urls')),
 
     # API documentation
     path(
-        'api/schema/',
+        'api/v1/schema/',
         SpectacularAPIView.as_view(),
         name='api-schema'
     ),
     path(
-        'api/docs/',
+        'api/v1/docs/',
         SpectacularSwaggerView.as_view(url_name='api-schema'),
         name='api-docs'
     ),
     path(
-        'api/redoc-docs/',
+        'api/v1/redoc-docs/',
         SpectacularRedocView.as_view(url_name='api-schema'),
         name='api-redoc-docs'
     ),
