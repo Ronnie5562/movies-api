@@ -20,7 +20,7 @@ class PlatformsView(
     queryset = Platform.objects.all().order_by('-id')
     serializer_class = PlatformSerializer
     lookup_field = 'id'
-    throttle_classes = [UserPlatformViewThrottle, AnonPlatformViewThrottle]
+    throttle_classes = [AnonPlatformViewThrottle, UserPlatformViewThrottle]
 
     def get(self, request, *args, **kwargs):
         """
