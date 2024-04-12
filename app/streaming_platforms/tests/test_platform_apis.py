@@ -97,6 +97,19 @@ class PublicPlatformAPITestCases(TestCase):
         )
         self.assertEqual(res.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
 
+    def test_anon_user_create_platform_fails(self):
+        """
+        Test that an anonymous user can't create a platform
+        """
+        payload = {
+            "name": "Netflix",
+            "website": "netflix.com",
+            "about": "Netflix is an online movie streaming platform"
+        }
+
+        res = self.client.post(PLATFORMS_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 class PrivatePlatformAPITestCases(TestCase):
     """
@@ -145,3 +158,16 @@ class PrivatePlatformAPITestCases(TestCase):
             num_requests=31
         )
         self.assertEqual(res.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+
+    def test_auth_user_create_platform_fails(self):
+        """
+        Test that an authenticated user can't create a platform
+        """
+        payload = {
+            "name": "Netflix",
+            "website": "netflix.com",
+            "about": "Netflix is an online movie streaming platform"
+        }
+
+        res = self.client.post(PLATFORMS_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

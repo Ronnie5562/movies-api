@@ -14,15 +14,17 @@ class PlatformTestCases(TestCase):
         Test that creating a platform is successful
         """
         name = 'Netflix'
+        website = 'netflix.com'
         about = 'Netflix is an online movie streaming platform'
 
         netflix = Platform.objects.create(
             name=name,
-            website='netflix.com',
+            website=website,
             about=about
         )
 
         self.assertEqual(netflix.name, name)
+        self.assertEqual(netflix.about, about)
         self.assertEqual(netflix.about, about)
         self.assertEqual(str(netflix), name)
         self.assertTrue(Platform.objects.count())
