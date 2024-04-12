@@ -8,7 +8,7 @@ class Platform(models.Model):
     """
     Model for Streaming Platforms.
     """
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     about = models.TextField(max_length=1000)
     website = models.URLField(unique=True)
 
