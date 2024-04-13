@@ -10,10 +10,7 @@ from streaming_platforms.models import Platform
 from streaming_platforms.serializers import PlatformSerializer
 
 
-class PlatformsView(
-                    mixins.ListModelMixin,
-                    mixins.RetrieveModelMixin,
-                    generics.GenericAPIView):
+class PlatformsView(generics.GenericAPIView):
     """
     List all streaming platforms or retrieve a single platform.
     """
@@ -22,11 +19,24 @@ class PlatformsView(
     lookup_field = 'id'
     throttle_classes = [AnonPlatformViewThrottle, UserPlatformViewThrottle]
 
+
+class PlatformListView(mixins.ListModelMixin, PlatformsView):
+    """
+    List all streaming platforms.
+    """
     def get(self, request, *args, **kwargs):
         """
-        Get the either the streaming platforms list \
-        or a single streaming platform
+        Get the streaming platforms list
         """
-        if kwargs.get('id'):
-            return self.retrieve(request, *args, **kwargs)
         return self.list(request, *args, **kwargs)
+
+
+class PlatformRetrieveView(mixins.RetrieveModelMixin, PlatformsView):
+    """
+    Retrieve a single streaming platform.
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Get a single streaming platform
+        """
+        return self.retrieve(request, *args, **kwargs)
