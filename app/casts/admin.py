@@ -29,7 +29,6 @@ class CastAdmin(admin.ModelAdmin):
             {
                 'fields': (
                     'role',
-                    'movies',
                 )
             }
         ),

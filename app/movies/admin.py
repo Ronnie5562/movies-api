@@ -2,6 +2,7 @@
 Admin configuration for the movies app.
 """
 from movies import models
+from casts.models import Cast
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext as translate_text
@@ -47,6 +48,16 @@ class MovieAdmin(admin.ModelAdmin):
     list_display = ['title', 'year', 'duration', 'bbfc_rating', 'avg_rating']
     search_fields = ['title', 'year', 'duration', 'bbfc_rating']
     readonly_fields = ['date_added', 'date_modified']
+    filter_horizontal = ['actors', 'directors', 'starring', 'genres']
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "actors":
+            kwargs["queryset"] = Cast.objects.filter(role='actor')
+        elif db_field.name == "directors":
+            kwargs["queryset"] = Cast.objects.filter(role='director')
+        if db_field.name == "starring":
+            kwargs["queryset"] = Cast.objects.filter(role='actor')
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     fieldsets = (
         (
@@ -96,14 +107,6 @@ class MovieAdmin(admin.ModelAdmin):
             {
                 'fields': (
                     'platform',
-                )
-            }
-        ),
-        (
-            translate_text('Views Information'),
-            {
-                'fields': (
-                    'views',
                 )
             }
         ),
