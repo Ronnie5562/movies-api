@@ -11,5 +11,5 @@ class PlatformSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Platform
-        fields = ["name", "website", "about"]
+        fields = ["id", "name", "website", "about"]
         read_only_fields = ['id']
