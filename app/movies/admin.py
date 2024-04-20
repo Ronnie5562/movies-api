@@ -47,7 +47,10 @@ class MovieAdmin(admin.ModelAdmin):
     """
     list_display = ['title', 'year', 'duration', 'bbfc_rating', 'avg_rating']
     search_fields = ['title', 'year', 'duration', 'bbfc_rating']
-    readonly_fields = ['date_added', 'date_modified']
+    readonly_fields = [
+        'date_added', 'date_modified',
+        'avg_rating', 'rating_count', 'popularity'
+    ]
     filter_horizontal = ['actors', 'directors', 'starring', 'genres']
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
@@ -130,7 +133,10 @@ class SeasonAdmin(admin.ModelAdmin):
     """
     list_display = ['title', 'duration', 'movie', 'avg_rating']
     search_fields = ['title', 'duration', 'movie']
-    readonly_fields = ['date_added', 'date_modified']
+    readonly_fields = [
+        'date_added', 'date_modified',
+        'avg_rating', 'rating_count', 'popularity'
+    ]
 
     fieldsets = (
         (
@@ -183,7 +189,10 @@ class EpisodeAdmin(admin.ModelAdmin):
     """
     list_display = ['title', 'duration', 'season', 'avg_rating']
     search_fields = ['title', 'duration', 'season']
-    readonly_fields = ['date_added', 'date_modified']
+    readonly_fields = [
+        'date_added', 'date_modified',
+        'avg_rating', 'rating_count', 'popularity'
+    ]
 
     fieldsets = (
         (

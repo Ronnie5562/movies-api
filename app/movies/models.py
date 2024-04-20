@@ -4,8 +4,8 @@ Movies App Models
 from django.db import models
 from core.models import User
 from casts.models import Cast
+from django.urls import reverse
 from streaming_platforms.models import Platform
-
 from django.contrib.contenttypes.fields import (
     GenericForeignKey,
     GenericRelation
@@ -46,7 +46,7 @@ class Movie(models.Model):
         ('TBC', 'To Be Confirmed - Rating is yet to be determined.'),
     ]
 
-    CONTENT_TYPES = [
+    MOVIE_TYPES = [
         ('Movies', 'Movies'),
         ('TV_series', 'TV Series'),
         ('Film_Series', 'Film Series'),
@@ -60,7 +60,7 @@ class Movie(models.Model):
     year = models.IntegerField()
     duration = models.IntegerField(help_text="Duration in minutes")
     genres = models.ManyToManyField(Genre, related_name='movies')
-    content_type = models.CharField(max_length=20, choices=CONTENT_TYPES)
+    movie_type = models.CharField(max_length=20, choices=MOVIE_TYPES)
     bbfc_rating = models.CharField(
         max_length=4,
         default='U',
@@ -96,6 +96,9 @@ class Movie(models.Model):
 
     def popularity_score(self):
         return self.popularity * 100
+
+    def get_absolute_url(self):
+        return reverse("movie-detail", kwargs={"id": self.id})
 
     def save(self, *args, **kwargs):
         if self.title == '':
@@ -141,6 +144,9 @@ class Season(models.Model):
     def popularity_score(self):
         return self.popularity * 100
 
+    def get_absolute_url(self):
+        return reverse("season-detail", kwargs={"id": self.id})
+
     def save(self, *args, **kwargs):
         if self.title == '':
             raise ValueError("Title is required")
@@ -182,6 +188,9 @@ class Episode(models.Model):
 
     def popularity_score(self):
         return self.popularity * 100
+
+    def get_absolute_url(self):
+        return reverse("episode-detail", kwargs={"id": self.id})
 
     def save(self, *args, **kwargs):
         if self.title == '':
@@ -236,6 +245,9 @@ class Review(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("review-detail", kwargs={"id": self.id})
+
     def __str__(self) -> str:
         film_title = self.content_type.get_object_for_this_type(
             id=self.object_id
@@ -254,4 +266,18 @@ def update_popularity_score(sender, instance, **kwargs):
         normalized_views = instance.views_count / max_views_count
     content_instance = instance.content
     content_instance.popularity = normalized_views
+    content_instance.save()
+
+
+@receiver(post_save, sender=Review)
+def update_film_rating(sender, instance, **kwargs):
+    content_model = instance.content_type.model_class()
+    content_instance = content_model.objects.get(id=instance.object_id)
+
+    content_instance.avg_rating = (
+        (
+            content_instance.avg_rating * content_instance.rating_count
+        ) + instance.rating
+    ) / (content_instance.rating_count + 1)
+
     content_instance.save()
