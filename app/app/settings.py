@@ -146,3 +146,11 @@ REST_FRAMEWORK = {
         'user-platforms': '30/minute',
     }
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Movies API',
+    'DESCRIPTION': 'A Sophisticated System to manage Movies, and Streaming Platforms, Casts, Awards, and more.',
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': True,
+    # OTHER SETTINGS
+}
