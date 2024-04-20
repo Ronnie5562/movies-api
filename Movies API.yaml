@@ -1,0 +1,2282 @@
+openapi: 3.0.3
+info:
+  title: Movies API
+  version: 0.0.1
+  description: project description
+paths:
+  /api/v1/casts/:
+    get:
+      operationId: casts_list
+      description: Get the list of casts
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cast'
+          description: ''
+    post:
+      operationId: casts_create
+      description: Create a new cast
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cast'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cast'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cast'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cast'
+          description: ''
+  /api/v1/casts/{id}/:
+    get:
+      operationId: casts_retrieve
+      description: Get the details of a single cast
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CastUpdate'
+          description: ''
+    put:
+      operationId: casts_update
+      description: Update the details of a single cast
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CastUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CastUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CastUpdate'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CastUpdate'
+          description: ''
+    patch:
+      operationId: casts_partial_update
+      description: Update the details of a single cast
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCastUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCastUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCastUpdate'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CastUpdate'
+          description: ''
+    delete:
+      operationId: casts_destroy
+      description: Delete a single cast
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/casts/awards/:
+    get:
+      operationId: casts_awards_list
+      description: Get the list of awards
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Award'
+          description: ''
+    post:
+      operationId: casts_awards_create
+      description: Create a new award
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Award'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Award'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Award'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+          description: ''
+  /api/v1/casts/awards-received/:
+    get:
+      operationId: casts_awards_received_list
+      description: Get the list of awards received
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AwardReceived'
+          description: ''
+    post:
+      operationId: casts_awards_received_create
+      description: Give out an award to an actor or director
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AwardReceived'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AwardReceived'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AwardReceived'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwardReceived'
+          description: ''
+  /api/v1/casts/awards-received/{id}/:
+    get:
+      operationId: casts_awards_received_retrieve
+      description: Get the details of a single award received
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwardReceived'
+          description: ''
+    put:
+      operationId: casts_awards_received_update
+      description: Update the details of a single award received
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AwardReceived'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AwardReceived'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AwardReceived'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwardReceived'
+          description: ''
+    patch:
+      operationId: casts_awards_received_partial_update
+      description: Update the details of a single award received
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAwardReceived'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAwardReceived'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAwardReceived'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwardReceived'
+          description: ''
+    delete:
+      operationId: casts_awards_received_destroy
+      description: Delete a single award received
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/casts/awards/{id}/:
+    get:
+      operationId: casts_awards_retrieve
+      description: Get the details of a single award
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+          description: ''
+    put:
+      operationId: casts_awards_update
+      description: Update the details of a single award
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Award'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Award'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Award'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+          description: ''
+    patch:
+      operationId: casts_awards_partial_update
+      description: Partially update the details of a single award
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAward'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAward'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAward'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+          description: ''
+    delete:
+      operationId: casts_awards_destroy
+      description: Delete a single award
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - casts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/movies/:
+    get:
+      operationId: movies_list
+      description: API View for Movie model.
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+          description: ''
+    post:
+      operationId: movies_create
+      description: API View for Movie model.
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Movie'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+  /api/v1/movies/{id}/:
+    get:
+      operationId: movies_retrieve
+      description: API View for Movie model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+    put:
+      operationId: movies_update
+      description: API View for Movie model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Movie'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+    patch:
+      operationId: movies_partial_update
+      description: API View for Movie model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+    delete:
+      operationId: movies_destroy
+      description: API View for Movie model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/movies/episodes/:
+    get:
+      operationId: movies_episodes_list
+      description: API View for Episode model.
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Episode'
+          description: ''
+    post:
+      operationId: movies_episodes_create
+      description: API View for Episode model.
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Episode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Episode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Episode'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+          description: ''
+  /api/v1/movies/episodes/{id}/:
+    get:
+      operationId: movies_episodes_retrieve
+      description: API View for Episode model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+          description: ''
+    put:
+      operationId: movies_episodes_update
+      description: API View for Episode model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Episode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Episode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Episode'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+          description: ''
+    patch:
+      operationId: movies_episodes_partial_update
+      description: API View for Episode model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEpisode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEpisode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEpisode'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+          description: ''
+    delete:
+      operationId: movies_episodes_destroy
+      description: API View for Episode model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/movies/genres/:
+    get:
+      operationId: movies_genres_list
+      description: API View for Genre model.
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Genre'
+          description: ''
+    post:
+      operationId: movies_genres_create
+      description: API View for Genre model.
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Genre'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+  /api/v1/movies/genres/{id}/:
+    get:
+      operationId: movies_genres_retrieve
+      description: API View for Genre model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+    put:
+      operationId: movies_genres_update
+      description: API View for Genre model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Genre'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+    patch:
+      operationId: movies_genres_partial_update
+      description: API View for Genre model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGenre'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGenre'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGenre'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+    delete:
+      operationId: movies_genres_destroy
+      description: API View for Genre model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/movies/reviews/:
+    get:
+      operationId: movies_reviews_list
+      description: API View for Review model.
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+          description: ''
+    post:
+      operationId: movies_reviews_create
+      description: API View for Review model.
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /api/v1/movies/reviews/{id}/:
+    get:
+      operationId: movies_reviews_retrieve
+      description: API View for Review model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    put:
+      operationId: movies_reviews_update
+      description: API View for Review model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    patch:
+      operationId: movies_reviews_partial_update
+      description: API View for Review model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    delete:
+      operationId: movies_reviews_destroy
+      description: API View for Review model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/movies/seasons/:
+    get:
+      operationId: movies_seasons_list
+      description: API View for Season model.
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Season'
+          description: ''
+    post:
+      operationId: movies_seasons_create
+      description: API View for Season model.
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Season'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Season'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Season'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Season'
+          description: ''
+  /api/v1/movies/seasons/{id}/:
+    get:
+      operationId: movies_seasons_retrieve
+      description: API View for Season model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Season'
+          description: ''
+    put:
+      operationId: movies_seasons_update
+      description: API View for Season model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Season'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Season'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Season'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Season'
+          description: ''
+    patch:
+      operationId: movies_seasons_partial_update
+      description: API View for Season model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSeason'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSeason'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSeason'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Season'
+          description: ''
+    delete:
+      operationId: movies_seasons_destroy
+      description: API View for Season model.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/platforms/:
+    get:
+      operationId: platforms_list
+      description: Get the streaming platforms list
+      tags:
+      - platforms
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Platform'
+          description: ''
+  /api/v1/platforms/{id}:
+    get:
+      operationId: platforms_retrieve
+      description: Get a single streaming platform
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - platforms
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Platform'
+          description: ''
+  /api/v1/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/users/create/:
+    post:
+      operationId: users_create_create
+      description: Create a new user in the system.
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/list/:
+    get:
+      operationId: users_list_list
+      description: List of users in the system.
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/me/:
+    get:
+      operationId: users_me_retrieve
+      description: Manage the authenticated user.
+      tags:
+      - users
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_me_update
+      description: Manage the authenticated user.
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: users_me_partial_update
+      description: Manage the authenticated user.
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/token/:
+    post:
+      operationId: users_token_create
+      description: Create a new auth token for user
+      tags:
+      - users
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      description: Serializer for the user authentication object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+      - email
+      - password
+    Award:
+      type: object
+      description: Serializer for the Award Model
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        category:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        is_active:
+          type: boolean
+      required:
+      - category
+      - description
+      - id
+      - name
+      - url
+    AwardReceived:
+      type: object
+      description: Serializer for the AwardReceived Model
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        recipient:
+          type: integer
+        award:
+          type: integer
+        year_received:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - award
+      - id
+      - recipient
+      - url
+      - year_received
+    BbfcRatingEnum:
+      enum:
+      - U
+      - PG
+      - '12'
+      - '15'
+      - '18'
+      - R18
+      - E
+      - TBC
+      type: string
+    Cast:
+      type: object
+      description: Serializer for the Cast model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        well_known_as:
+          type: string
+          maxLength: 100
+        age:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        bio:
+          type: string
+          maxLength: 1500
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        movies:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+        awards:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+      required:
+      - age
+      - awards
+      - bio
+      - gender
+      - id
+      - movies
+      - name
+      - role
+      - url
+    CastUpdate:
+      type: object
+      description: Serializer for the Cast model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        awards:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+          maxLength: 100
+        well_known_as:
+          type: string
+          maxLength: 100
+        age:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        bio:
+          type: string
+          maxLength: 1500
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        movies:
+          type: array
+          items:
+            type: integer
+      required:
+      - age
+      - bio
+      - gender
+      - id
+      - movies
+      - name
+      - role
+      - url
+    Episode:
+      type: object
+      description: Serializer for the Episode model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        intro:
+          type: string
+          maxLength: 100
+        storyline:
+          type: string
+          maxLength: 1000
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Duration in minutes
+        avg_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        popularity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        is_active:
+          type: boolean
+        season:
+          type: integer
+      required:
+      - avg_rating
+      - duration
+      - id
+      - popularity
+      - rating_count
+      - season
+      - title
+      - url
+    GenderEnum:
+      enum:
+      - M
+      - F
+      type: string
+    Genre:
+      type: object
+      description: Serializer for the Genre model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 100
+        is_active:
+          type: boolean
+      required:
+      - id
+      - name
+    Movie:
+      type: object
+      description: Serializer for the Movie model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+        platform:
+          $ref: '#/components/schemas/Platform'
+        actors:
+          type: array
+          items:
+            type: string
+        starring:
+          type: array
+          items:
+            type: string
+        directors:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        intro:
+          type: string
+          maxLength: 100
+        storyline:
+          type: string
+          maxLength: 1500
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Duration in minutes
+        movie_type:
+          $ref: '#/components/schemas/MovieTypeEnum'
+        bbfc_rating:
+          allOf:
+          - $ref: '#/components/schemas/BbfcRatingEnum'
+          description: Select the BBFC rating for this movie.
+        avg_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        popularity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        is_active:
+          type: boolean
+      required:
+      - avg_rating
+      - duration
+      - id
+      - movie_type
+      - popularity
+      - rating_count
+      - title
+      - url
+      - year
+    MovieTypeEnum:
+      enum:
+      - Movies
+      - TV_series
+      - Film_Series
+      - Episodes
+      - Documentaries
+      type: string
+    PatchedAward:
+      type: object
+      description: Serializer for the Award Model
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        category:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        is_active:
+          type: boolean
+    PatchedAwardReceived:
+      type: object
+      description: Serializer for the AwardReceived Model
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        recipient:
+          type: integer
+        award:
+          type: integer
+        year_received:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+    PatchedCastUpdate:
+      type: object
+      description: Serializer for the Cast model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        awards:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+          maxLength: 100
+        well_known_as:
+          type: string
+          maxLength: 100
+        age:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        bio:
+          type: string
+          maxLength: 1500
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        movies:
+          type: array
+          items:
+            type: integer
+    PatchedEpisode:
+      type: object
+      description: Serializer for the Episode model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        intro:
+          type: string
+          maxLength: 100
+        storyline:
+          type: string
+          maxLength: 1000
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Duration in minutes
+        avg_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        popularity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        is_active:
+          type: boolean
+        season:
+          type: integer
+    PatchedGenre:
+      type: object
+      description: Serializer for the Genre model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 100
+        is_active:
+          type: boolean
+    PatchedMovie:
+      type: object
+      description: Serializer for the Movie model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+        platform:
+          $ref: '#/components/schemas/Platform'
+        actors:
+          type: array
+          items:
+            type: string
+        starring:
+          type: array
+          items:
+            type: string
+        directors:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        intro:
+          type: string
+          maxLength: 100
+        storyline:
+          type: string
+          maxLength: 1500
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Duration in minutes
+        movie_type:
+          $ref: '#/components/schemas/MovieTypeEnum'
+        bbfc_rating:
+          allOf:
+          - $ref: '#/components/schemas/BbfcRatingEnum'
+          description: Select the BBFC rating for this movie.
+        avg_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        popularity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        is_active:
+          type: boolean
+    PatchedReview:
+      type: object
+      description: Serializer for the Review model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        object_id:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        rating:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        comment:
+          type: string
+          maxLength: 500
+        is_active:
+          type: boolean
+        author:
+          type: integer
+        content_type:
+          type: integer
+    PatchedSeason:
+      type: object
+      description: Serializer for the Season model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        intro:
+          type: string
+          maxLength: 100
+        storyline:
+          type: string
+          maxLength: 1000
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Duration in minutes
+        avg_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        popularity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        is_active:
+          type: boolean
+        movie:
+          type: integer
+    PatchedUser:
+      type: object
+      description: Serializer for the user object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+          minLength: 5
+        name:
+          type: string
+          maxLength: 255
+    Platform:
+      type: object
+      description: Serializer for the Stream Platform object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        website:
+          type: string
+          format: uri
+          maxLength: 200
+        about:
+          type: string
+          maxLength: 1000
+      required:
+      - about
+      - id
+      - name
+      - website
+    Review:
+      type: object
+      description: Serializer for the Review model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        object_id:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        rating:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        comment:
+          type: string
+          maxLength: 500
+        is_active:
+          type: boolean
+        author:
+          type: integer
+        content_type:
+          type: integer
+      required:
+      - author
+      - comment
+      - content_type
+      - id
+      - object_id
+      - rating
+      - url
+    RoleEnum:
+      enum:
+      - actor
+      - director
+      type: string
+    Season:
+      type: object
+      description: Serializer for the Season model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        intro:
+          type: string
+          maxLength: 100
+        storyline:
+          type: string
+          maxLength: 1000
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: Duration in minutes
+        avg_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        popularity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        is_active:
+          type: boolean
+        movie:
+          type: integer
+      required:
+      - avg_rating
+      - duration
+      - id
+      - movie
+      - popularity
+      - rating_count
+      - title
+      - url
+    User:
+      type: object
+      description: Serializer for the user object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+          minLength: 5
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - email
+      - name
+      - password
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
