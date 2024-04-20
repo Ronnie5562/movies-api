@@ -2,6 +2,8 @@
 Models for the Cast App.
 """
 from django.db import models
+from django.urls import reverse
+
 # from movies.models import Movie
 
 
@@ -27,8 +29,15 @@ class Cast(models.Model):
     role = models.CharField(max_length=100, choices=ROLE)
     movies = models.ManyToManyField('movies.Movie', related_name='casts')
     awards = models.ManyToManyField('Award', through='AwardReceived')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    # @property
+    # def movies(self):
+    #     return Movies.objects.filter()
+
+    def get_absolute_url(self):
+        return reverse("cast-detail", kwargs={"id": self.id})
 
     def __str__(self) -> str:
         return self.name
@@ -46,6 +55,9 @@ class Award(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("award-detail", kwargs={"id": self.id})
+
     def __str__(self) -> str:
         return f"{self.name} - {self.category}"
 
@@ -61,6 +73,9 @@ class AwardReceived(models.Model):
     class Meta:
         unique_together = ['recipient', 'award']
         verbose_name_plural = 'Awards Received'
+
+    def get_absolute_url(self):
+        return reverse("award-received-detail", kwargs={"id": self.id})
 
     def __str__(self) -> str:
         return f"{self.recipient.name} - {self.award.name}"
