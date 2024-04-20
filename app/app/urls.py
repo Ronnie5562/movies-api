@@ -29,6 +29,8 @@ urlpatterns = [
     # Apps
     path('api/v1/users/', include('users.urls')),
     path('api/v1/platforms/', include('streaming_platforms.urls')),
+    path('api/v1/casts/', include('casts.urls')),
+    path('api/v1/movies/', include('movies.urls')),
 
     # API documentation
     path(
@@ -37,12 +39,12 @@ urlpatterns = [
         name='api-schema'
     ),
     path(
-        'api/v1/docs/',
+        'api/v1/swagger-ui/',
         SpectacularSwaggerView.as_view(url_name='api-schema'),
         name='api-docs'
     ),
     path(
-        'api/v1/redoc-docs/',
+        'api/v1/docs/',
         SpectacularRedocView.as_view(url_name='api-schema'),
         name='api-redoc-docs'
     ),
