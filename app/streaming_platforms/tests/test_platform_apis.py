@@ -31,6 +31,22 @@ def create_user(email="test@example.com", password="test123", **other_data):
     )
 
 
+def create_superuser(email="admin@test.com", password="test", **other_data):
+    """
+    Helper function to create a user
+    """
+    super_user = get_user_model().objects.create_superuser(
+        email,
+        password,
+        **other_data
+    )
+    super_user.is_staff = True
+    super_user.is_superuser = True
+    super_user.save()
+
+    return super_user
+
+
 def send_multiple_requests_to_api_endpoint(endpoint, client, num_requests=11):
     """
     Helper function to send 11 requests to the API endpoint
@@ -108,7 +124,7 @@ class PublicPlatformAPITestCases(TestCase):
         }
 
         res = self.client.post(PLATFORMS_URL, payload)
-        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivatePlatformAPITestCases(TestCase):
@@ -119,6 +135,10 @@ class PrivatePlatformAPITestCases(TestCase):
         self.client = APIClient()
         self.user = create_user()
         self.client.force_authenticate(self.user)
+
+        self.admin_client = APIClient()
+        self.superuser = create_superuser()
+        self.admin_client.force_authenticate(self.superuser)
 
     def test_auth_user_get_platforms_list(self):
         """
@@ -159,9 +179,9 @@ class PrivatePlatformAPITestCases(TestCase):
         )
         self.assertEqual(res.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
 
-    def test_auth_user_create_platform_fails(self):
+    def test_nromal_auth_user_create_platform_fails(self):
         """
-        Test that an authenticated user can't create a platform
+        Test that a normal authenticated user can't create a platform
         """
         payload = {
             "name": "Netflix",
@@ -170,4 +190,21 @@ class PrivatePlatformAPITestCases(TestCase):
         }
 
         res = self.client.post(PLATFORMS_URL, payload)
-        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_admin_user_create_platform(self):
+        """
+        Test that an admin user can create a platform
+        """
+
+        payload = {
+            "name": "Disney+",
+            "website": "https://www.disneyplus.com/",
+            "about": "Disney+ is an online movie streaming platform"
+        }
+
+        res = self.admin_client.post(PLATFORMS_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+
+        self.user.is_staff = False
+        self.user.save()

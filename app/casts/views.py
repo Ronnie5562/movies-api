@@ -20,7 +20,7 @@ class CastView(generics.GenericAPIView):
 
     def get_permissions(self):
         if self.request.method not in permissions.SAFE_METHODS:
-            return [permissions.IsAdminUser]
+            return [permissions.IsAdminUser()]
         else:
             return super().get_permissions()
 

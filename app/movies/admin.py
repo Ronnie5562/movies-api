@@ -48,7 +48,7 @@ class MovieAdmin(admin.ModelAdmin):
     list_display = ['title', 'year', 'duration', 'bbfc_rating', 'avg_rating']
     search_fields = ['title', 'year', 'duration', 'bbfc_rating']
     readonly_fields = [
-        'date_added', 'date_modified',
+        'id', 'date_added', 'date_modified',
         'avg_rating', 'rating_count', 'popularity'
     ]
     filter_horizontal = ['actors', 'directors', 'starring', 'genres']
@@ -67,6 +67,7 @@ class MovieAdmin(admin.ModelAdmin):
             translate_text('Movie Information'),
             {
                 'fields': (
+                    'id',
                     'title',
                     'intro',
                     'storyline',
@@ -80,7 +81,7 @@ class MovieAdmin(admin.ModelAdmin):
             translate_text('Classification'),
             {
                 'fields': (
-                    'content_type',
+                    'movie_type',
                     'bbfc_rating'
                 )
             }
